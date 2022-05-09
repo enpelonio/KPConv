@@ -114,7 +114,7 @@ class Pheno4dDataset(Dataset):
         ##########################
 
         # Path of the folder containing ply files
-        self.path = 'Data/Pheno4d/'
+        self.path = 'Data/pheno4d_mt/'
 
         # Number of threads
         self.num_threads = input_threads
@@ -171,17 +171,16 @@ class Pheno4dDataset(Dataset):
                         
         return [file for file in allFiles if letter+'0' in file or letter +'0' in file]
     
-    def getSafeFileNameWithoutExt(self,file:str):
-        #print("tae:",file)
-        start_index=-1
-        try:
-            start_index = file.rindex('M0')
-        except:
-            start_index = file.rindex('T0')
+    def getSafeFileNameWithoutExtForPlant(file:str):
+      start_index=-1
+      try:
+        start_index = file.index('Tomato')
+      except:
+        start_index = file.index('Maize')
 
-        end_index = file.rindex('.')
-        return file[start_index:end_index]
-    
+      end_index = file.rindex('.')
+      return file[start_index:end_index]
+
     def prepare_Pheno4d_ply(self):
 
         print('\nPreparing ply files')
@@ -199,6 +198,9 @@ class Pheno4dDataset(Dataset):
         
         train_maize,val_maize,test_maize = self.split_data_by_plant('Maize',42)
         train_tomato,val_tomato,test_tomato = self.split_data_by_plant('Tomato',42)
+
+        print('Maize\nTrain: ',train_maize,'\n','Val: ',val_maize,'\n','Test: ',test_maize,'\n')
+        print('Tomato\nTrain: ',train_tomato,'\n','Val: ',val_tomato,'\n','Test: ',test_tomato)
         
         # split_file = join(self.path, 'train_test_split', 'shuffled_train_file_list.json')
         # with open(split_file, 'r') as f:
@@ -249,8 +251,9 @@ class Pheno4dDataset(Dataset):
                 file_name = file.split('/')[1]
 
                 # Load points and labels
-                points = np.loadtxt(join(self.path, synset, 'points', file_name + '.pts')).astype(np.float32)
-                labels = np.loadtxt(join(self.path, synset, 'points_label', file_name + '.seg')).astype(np.int32)
+                points = np.loadtxt(join(self.path, file_name + '.txt')).astype(np.float32)
+                labels = points[:,-1]
+                points = points[:,:-1].astype(np.int32)
 
                 # Center and rescale point for 1m radius
                 pmin = np.min(points, axis=0)
