@@ -171,7 +171,7 @@ class Pheno4dDataset(Dataset):
                         
         return [file for file in allFiles if letter+'0' in file or letter +'0' in file]
     
-    def getSafeFileNameWithoutExtForPlant(file:str):
+    def getSafeFileNameWithoutExtForPlant(self,file:str):
       start_index=-1
       try:
         start_index = file.index('Tomato')
