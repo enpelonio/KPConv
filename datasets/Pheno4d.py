@@ -167,7 +167,10 @@ class Pheno4dDataset(Dataset):
                 allFiles = allFiles + self.getListOfFilesByPlant(fullPath,plant)
             else:
                 #print(fullPath)
-                allFiles.append(self.getSafeFileNameWithoutExtForPlant(fullPath))
+                try:
+                    allFiles.append(self.getSafeFileNameWithoutExtForPlant(fullPath))
+                except:
+                    continue
                         
         return [file for file in allFiles if letter+'0' in file or letter +'0' in file]
     
