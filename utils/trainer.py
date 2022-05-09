@@ -301,7 +301,8 @@ class ModelTrainer:
                 if model.config.saving and not exists(join(model.saving_path, 'running_PID.txt')):
                     break
 
-                if model.config.dataset.startswith('ShapeNetPart') or model.config.dataset.startswith('ModelNet'):
+                if model.config.dataset.startswith('ShapeNetPart') or model.config.dataset.startswith('ModelNet') \
+                or model.config.dataset.startswith('Pheno4d'):
                     if model.config.epoch_steps and epoch_n > model.config.epoch_steps:
                         raise tf.errors.OutOfRangeError(None, None, '')
 

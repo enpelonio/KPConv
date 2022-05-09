@@ -139,7 +139,7 @@ class Pheno4dConfig(Config):
     epoch_steps = 100
 
     # Number of validation examples per epoch
-    validation_size = 21
+    validation_size = 10
 
     # Number of epoch between each snapshot
     snapshot_gap = 10
