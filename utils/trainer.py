@@ -458,17 +458,17 @@ class ModelTrainer:
         # Compute classification results
         C1 = confusion_matrix(targets,
                               np.argmax(probs, axis=1),
-                              validation_labels)
+                              labels=validation_labels)
 
         # Compute training confusion
         C2 = confusion_matrix(self.training_labels,
                               self.training_preds,
-                              validation_labels)
+                              labels=validation_labels)
 
         # Compute votes confusion
         C3 = confusion_matrix(dataset.input_labels['validation'],
                               np.argmax(self.val_probs, axis=1),
-                              validation_labels)
+                              labels=validation_labels)
 
 
         # Saving (optionnal)
@@ -583,7 +583,7 @@ class ModelTrainer:
         Confs = np.zeros((len(probs), n_parts, n_parts), dtype=np.int32)
         for i, (pred, truth) in enumerate(zip(probs, targets)):
             parts = [j for j in range(pred.shape[1])]
-            Confs[i, :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), parts)
+            Confs[i, :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), labels=parts)
 
         # Objects IoU
         IoUs = IoU_from_confusions(Confs)
@@ -593,7 +593,7 @@ class ModelTrainer:
         Confs = np.zeros((len(self.val_probs), n_parts, n_parts), dtype=np.int32)
         for i, (pred, truth) in enumerate(zip(self.val_probs, dataset.input_point_labels['validation'])):
             parts = [j for j in range(pred.shape[1])]
-            Confs[i, :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), parts)
+            Confs[i, :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), labels=parts)
 
         # Objects IoU
         vote_IoUs = IoU_from_confusions(Confs)
@@ -737,7 +737,7 @@ class ModelTrainer:
             preds = dataset.label_values[np.argmax(probs, axis=1)]
 
             # Confusions
-            Confs[i, :, :] = confusion_matrix(truth, preds, dataset.label_values)
+            Confs[i, :, :] = confusion_matrix(truth, preds, labels=dataset.label_values)
 
         # Sum all confusions
         C = np.sum(Confs, axis=0).astype(np.float32)
@@ -915,7 +915,7 @@ class ModelTrainer:
         obj_count = [0 for _ in n_objs]
         for obj, pred, truth in zip(objects, probs, targets):
             parts = [i for i in range(pred.shape[1])]
-            Confs[obj][obj_count[obj], :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), parts)
+            Confs[obj][obj_count[obj], :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), labels=parts)
             obj_count[obj] += 1
 
         # Objects mIoU
@@ -931,7 +931,7 @@ class ModelTrainer:
                                     self.val_probs,
                                     dataset.input_point_labels['validation']):
             parts = [i for i in range(pred.shape[1])]
-            Confs[obj][obj_count[obj], :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), parts)
+            Confs[obj][obj_count[obj], :, :] = confusion_matrix(truth, np.argmax(pred, axis=1), labels=parts)
             obj_count[obj] += 1
 
         # Objects mIoU
