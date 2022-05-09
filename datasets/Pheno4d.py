@@ -239,7 +239,7 @@ class Pheno4dDataset(Dataset):
 
                 # Get class
                 
-                class_name = categories[0] if file.upper().contains('MAIZE') else categories[1]
+                class_name = categories[0] if 'MAIZE' in file.upper() else categories[1]
 
                 # Check if file already exists
                 ply_name = join(ply_path, '{:s}_{:04d}.ply'.format(class_name, class_nums[class_name]))
