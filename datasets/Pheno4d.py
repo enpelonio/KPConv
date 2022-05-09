@@ -437,6 +437,10 @@ class Pheno4dDataset(Dataset):
             self.input_points['training'] = np.array(self.input_points['training'])[boolean_mask]
             self.input_point_labels['training'] = np.array(self.input_point_labels['training'])[boolean_mask]
             self.num_train = len(self.input_labels['training'])
+            
+            print("===============Num Train================")
+            print(self.num_train)
+            print("========================================")
 
             # Manage test points
             boolean_mask = self.input_labels['test'] == wanted_label
