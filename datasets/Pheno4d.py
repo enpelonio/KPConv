@@ -343,6 +343,10 @@ class Pheno4dDataset(Dataset):
             names = [f[:-4] for f in listdir(split_path) if f[-4:] == '.ply']
             names = np.sort(names)
 
+            print("======================== Num Train Combined ==========================")
+            print(len(self.input_labels))
+            print("======================================================================")
+            
             # Collect point clouds
             for i, cloud_name in enumerate(names):
                 data = read_ply(join(split_path, cloud_name + '.ply'))
