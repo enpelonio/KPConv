@@ -52,9 +52,9 @@ class Pheno4dConfig(Config):
     # Dataset parameters
     ####################
 
-    # Dataset name in the format 'ShapeNetPart_Object' to segment an object class independently or 'ShapeNetPart_multi'
+    # Dataset name in the format 'Pheno4d_Object' to segment an object class independently or 'Pheno4d_multi'
     # to segment all objects with a single model.
-    dataset = 'ShapeNetPart_Maize'
+    dataset = 'Pheno4d_Maize'
 
     # Number of classes in the dataset (This value is overwritten by dataset class when initiating input pipeline).
     num_classes = None
