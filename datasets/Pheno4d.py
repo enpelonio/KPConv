@@ -88,9 +88,9 @@ class Pheno4dDataset(Dataset):
         # Number of parts for each object
         self.num_parts = [2, 2]
         # Type of dataset (one of the class names or 'multi')
-        self.Pheno4dType = class_name
+        self.ShapeNetPartType = class_name
 
-        if self.Pheno4dType == 'multi':
+        if self.ShapeNetPartType == 'multi':
 
             # Number of models
             self.network_model = 'multi_segmentation'
@@ -99,7 +99,7 @@ class Pheno4dDataset(Dataset):
             self.num_train = 49
             self.num_test = 77
 
-        elif self.Pheno4dType in self.label_names:
+        elif self.ShapeNetPartType in self.label_names:
 
             # Number of models computed when init_subsample_clouds is called
             self.network_model = 'segmentation'
@@ -107,7 +107,7 @@ class Pheno4dDataset(Dataset):
             self.num_test = None
 
         else:
-            raise ValueError('Unsupported Pheno4d object class : \'{:s}\''.format(self.Pheno4dType))
+            raise ValueError('Unsupported Pheno4d object class : \'{:s}\''.format(self.ShapeNetPartType))
 
         ##########################
         # Parameters for the files
@@ -423,9 +423,9 @@ class Pheno4dDataset(Dataset):
         #######################################
 
         # Eliminate unconsidered classes
-        if self.Pheno4dType in self.label_names:
+        if self.ShapeNetPartType in self.label_names:
             # Index of the wanted label
-            wanted_label = self.name_to_label[self.Pheno4dType]
+            wanted_label = self.name_to_label[self.ShapeNetPartType]
 
             # Manage training points
             boolean_mask = self.input_labels['training'] == wanted_label
@@ -596,13 +596,13 @@ class Pheno4dDataset(Dataset):
         # Choose generators
         ###################
 
-        if self.Pheno4dType == 'multi':
+        if self.ShapeNetPartType == 'multi':
             # Generator types and shapes
             gen_types = (tf.float32, tf.int32, tf.int32, tf.int32, tf.int32)
             gen_shapes = ([None, 3], [None], [None], [None], [None])
             return variable_batch_gen_multi, gen_types, gen_shapes
 
-        elif self.Pheno4dType in self.label_names:
+        elif self.ShapeNetPartType in self.label_names:
 
             # Generator types and shapes
             gen_types = (tf.float32, tf.int32, tf.int32, tf.int32)
@@ -700,10 +700,10 @@ class Pheno4dDataset(Dataset):
 
             return input_list
 
-        if self.Pheno4dType == 'multi':
+        if self.ShapeNetPartType == 'multi':
             return tf_map_multi
 
-        elif self.Pheno4dType in self.label_names:
+        elif self.ShapeNetPartType in self.label_names:
             return tf_map_segment
         else:
             raise ValueError('Unsupported ShapeNetPart dataset type')
