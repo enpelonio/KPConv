@@ -252,8 +252,8 @@ class Pheno4dDataset(Dataset):
 
                 # Load points and labels
                 points = np.loadtxt(join(self.path, file_name + '.txt')).astype(np.float32)
-                labels = points[:,-1]
-                points = points[:,:-1].astype(np.int32)
+                labels = points[:,-1].astype(np.int32)
+                points = points[:,:-1]
 
                 # Center and rescale point for 1m radius
                 pmin = np.min(points, axis=0)
