@@ -96,8 +96,8 @@ class Pheno4dDataset(Dataset):
             self.network_model = 'multi_segmentation'
             
             #add this later
-            self.num_train = 49
-            self.num_test = 77
+            self.num_train = 90
+            self.num_test = 36
 
         elif self.ShapeNetPartType in self.label_names:
 
@@ -206,6 +206,7 @@ class Pheno4dDataset(Dataset):
         print('Maize\nTrain: ',train_maize,'\n','Val: ',val_maize,'\n','Test: ',test_maize,'\n')
         print('Tomato\nTrain: ',train_tomato,'\n','Val: ',val_tomato,'\n','Test: ',test_tomato)
         print('Maize Train Num: '+str(len(train_maize)))
+        print('Tomato Train Num: '+str(len(train_tomato)))
         
         # split_file = join(self.path, 'train_test_split', 'shuffled_train_file_list.json')
         # with open(split_file, 'r') as f:
