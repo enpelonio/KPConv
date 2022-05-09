@@ -205,6 +205,7 @@ class Pheno4dDataset(Dataset):
 
         print('Maize\nTrain: ',train_maize,'\n','Val: ',val_maize,'\n','Test: ',test_maize,'\n')
         print('Tomato\nTrain: ',train_tomato,'\n','Val: ',val_tomato,'\n','Test: ',test_tomato)
+        print('Maize Train Num: '+str(len(train_maize)))
         
         # split_file = join(self.path, 'train_test_split', 'shuffled_train_file_list.json')
         # with open(split_file, 'r') as f:
@@ -439,7 +440,7 @@ class Pheno4dDataset(Dataset):
             self.num_train = len(self.input_labels['training'])
             
             print("===============Num Train================")
-            print(wanted_label)
+            print(self.num_train)
             print("========================================")
 
             # Manage test points
