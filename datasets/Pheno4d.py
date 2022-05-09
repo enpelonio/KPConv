@@ -439,7 +439,7 @@ class Pheno4dDataset(Dataset):
             self.num_train = len(self.input_labels['training'])
             
             print("===============Num Train================")
-            print(self.num_train)
+            print(wanted_label)
             print("========================================")
 
             # Manage test points
