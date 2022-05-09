@@ -248,7 +248,7 @@ class Pheno4dDataset(Dataset):
                     continue
 
                 # Get filename
-                file_name = file.split('/')[1]
+                file_name = file
 
                 # Load points and labels
                 points = np.loadtxt(join(self.path, file_name + '.txt')).astype(np.float32)
