@@ -174,9 +174,10 @@ class Pheno4dDataset(Dataset):
     def getSafeFileNameWithoutExtForPlant(self,file:str):
       start_index=-1
       try:
-        start_index = file.index('T')
+        start_index = file.index('Tomato')
       except:
-        start_index = file.index('M')
+        print(file)
+        start_index = file.index('Maize')
 
       end_index = file.rindex('.')
       return file[start_index:end_index]
